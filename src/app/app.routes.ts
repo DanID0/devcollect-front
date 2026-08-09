@@ -20,5 +20,11 @@ export const routes: Routes = [
     path: 'guides',
     loadComponent: () =>
         import('./components/guide-page/guide-page').then((m)=> m.GuidePage)
+},
+{
+    path: '**',
+    loadComponent: () =>
+        import('./components/error-page/error-page').then((m)=> m.ErrorPage)
 }
+
 ];
