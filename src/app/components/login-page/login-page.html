@@ -1,0 +1,49 @@
+<section class="w-screen h-screen flex">
+
+    <div class="w-1/2 flex flex-col justify-center items-center">
+  
+      <h2 class="text-3xl">Log In</h2>
+  
+      <div class="mt-12 flex flex-col gap-4">
+  
+        <div class="w-96 h-11">
+          <h2 class="text-xl">Enter your username or email</h2>
+          <input
+            type="text || email"
+            [formField]="loginForm.identifier "
+            class="border-2 rounded w-full h-full px-3"
+            placeholder="Enter your username or Email"
+          />
+        </div>
+  
+        <div class="w-96 h-11">
+          <input
+            type="password"
+            [formField]="loginForm.password"
+            class="border-2 rounded w-full h-full px-3"
+            placeholder="your password"
+          />
+        </div>
+  
+        <button
+          type="submit"
+          class="h-11 rounded bg-blue-500 text-white"
+          (click) = "onSubmit()"
+        >
+          Log In
+        </button>
+      </div>
+    <div class="flex flex-row gap-2">
+        <p>Dont have an account ? </p>
+      <a routerLink = "/signup" class="text-blue-600">
+    Sign Up
+      </a>
+    </div>
+</div>
+  
+
+    <div class="w-1/2">
+        <img src="/Rectangle 2775.png" class="h-screen w-full" alt="Login image"/>  
+    </div>
+  
+  </section>
