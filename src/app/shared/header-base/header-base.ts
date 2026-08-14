@@ -14,7 +14,14 @@ export class HeaderBase {
   menuOpen = signal(false);
 ngOnInit(){
   
-  this.auth.getUser();
+  this.auth.getUser().subscribe({
+next: (user) => {
+this.auth.currentUser.set(user)
+},
+error: () => {
+this.auth.currentUser.set(null);
+}
+});
   
 }
 

@@ -11,16 +11,18 @@ login(credentials: Login){
     return this.http.post<Login>(`${this.authUrl}/signin`,  credentials, { withCredentials: true })
 }
 getUser() {
-    this.http.get<User>(`${this.authUrl}/protected`, { withCredentials: true }).subscribe({
-      next: (user) => {
-        this.currentUser.set(user)
-      },
-      error: () => {
-        this.currentUser.set(null);
-      }
-    });
+   return this.http.get<User>(`${this.authUrl}/protected`, { withCredentials: true })
   }
+  
 logout(){
     return this.http.post(`${this.authUrl}/logout`, {}, { withCredentials: true })
 }
 }
+// .subscribe({
+//   next: (user) => {
+//     this.currentUser.set(user)
+//   },
+//   error: () => {
+//     this.currentUser.set(null);
+//   }
+// });
