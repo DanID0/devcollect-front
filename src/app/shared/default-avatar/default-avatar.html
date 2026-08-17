@@ -1,0 +1,7 @@
+@if(auth.currentUser()?.avatarUrl == null){
+<img src="/defaultAvatar.jpg" alt="" class="size-10 object-cover">
+}
+
+@else{
+    <img [src]="auth.currentUser()?.avatarUrl" alt="" class="size-10 object-cover" />
+}

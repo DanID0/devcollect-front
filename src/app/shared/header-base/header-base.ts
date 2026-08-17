@@ -1,19 +1,17 @@
 import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../core/services/auth';
-import { User } from '../../core/interfaces/userInterface';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { DefaultAvatar } from '../default-avatar/default-avatar';
 @Component({
   selector: 'app-header-base',
-  imports: [RouterLink],
+  imports: [RouterLink, DefaultAvatar],
   templateUrl: './header-base.html',
   styleUrl: './header-base.css',
 })
 export class HeaderBase {
   auth = inject (AuthService);
-  private router = inject (Router)
   menuOpen = signal(false);
 ngOnInit(){
-  
   this.auth.getUser().subscribe({
 next: (user) => {
 this.auth.currentUser.set(user)
