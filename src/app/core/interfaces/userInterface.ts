@@ -18,3 +18,8 @@ export interface Login {
     identifier: string,
     password: string;
 }
+export interface ProfileUpdatePayload {
+   username: string; 
+   email: string; 
+   avatarUrl?: string | null;
+   }

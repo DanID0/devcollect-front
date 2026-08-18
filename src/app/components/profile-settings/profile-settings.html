@@ -1,1 +1,218 @@
-<p>profile-settings works!</p>
+
+<div class="mx-auto w-full max-w-2xl px-6 py-10">
+
+    <!-- Header -->
+    <div class="mb-8">
+        <h1 class="text-2xl font-semibold tracking-tight text-gray-900">
+            Edit Profile
+        </h1>
+
+        <p class="mt-1 text-sm text-gray-500">
+            Update your profile and account information.
+        </p>
+    </div>
+
+    <!-- Profile Card -->
+    <div class="rounded-xl border border-gray-200 bg-white shadow-sm">
+
+
+
+            <!-- Avatar -->
+            <div class="mb-8 flex items-center gap-5">
+
+                <!--
+                    Replace the contents of this button with your actual
+                    avatar image when you add the functionality.
+                -->
+                <button
+                    type="button"
+                    class="group relative flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-100 ring-1 ring-gray-200 transition hover:ring-gray-400"
+                >
+                    <!-- Avatar placeholder -->
+                 @if(auth.currentUser()?.avatarUrl == null){
+                    <svg
+                    class="h-9 w-9 text-gray-400"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        d="M15.75 7.5a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 19.5a7.5 7.5 0 0115 0"
+                    />
+                </svg> 
+                    }
+                @else{
+                        <img [src]="auth.currentUser()?.avatarUrl"  alt="" class="h-9 w-9 text-gray-400">
+                    }
+
+
+                    <!-- Hover  -->
+                    <span
+                        class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition group-hover:opacity-100"
+                    >
+                        <svg
+                            class="h-6 w-6 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.8"
+                                d="M3 7.5A1.5 1.5 0 014.5 6h2.379a1.5 1.5 0 001.342-.829l.558-1.114A1.5 1.5 0 0110.121 3h3.758a1.5 1.5 0 011.342.829l.558 1.114A1.5 1.5 0 0017.121 6H19.5A1.5 1.5 0 0121 7.5v11A1.5 1.5 0 0119.5 20h-15A1.5 1.5 0 013 18.5v-11z"
+                            />
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.8"
+                                d="M15.5 13a3.5 3.5 0 11-7 0 3.5 3.5 0 017 0z"
+                            />
+                        </svg>
+                    </span>
+                </button>
+
+                <div>
+                    <h2 class="text-sm font-medium text-gray-900">
+                        Profile picture
+                    </h2>
+
+                    <p class="mt-1 text-sm text-gray-500">
+                        Click your avatar to choose a new picture.
+                    </p>
+                </div>
+            </div>
+
+            <div class="space-y-5">
+
+                <!-- Username -->
+                 
+                <div>
+                    <label
+                        for="username"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                    >
+                        Username
+                    </label>
+
+                    <input
+                    type="text"
+                    [formField]="settings.username"
+                    class="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                    placeholder="your username"
+                  />
+                  @if ( settings.username().touched() && settings.username().value() === auth.currentUser()?.username) {
+                        <p class="mt-1 text-sm text-gray-500">
+                            Please enter a new username
+                        </p>
+}
+                  
+                </div>
+
+
+                <!-- Email -->
+                <div>
+                    <label
+                        for="email"
+                        class="mb-2 block text-sm font-medium text-gray-700"
+                    >
+                        Email
+                    </label>
+
+                    <input
+                        id="email"
+                        type="email"
+                        [formField]="settings.email"
+                        placeholder="you@example.com"
+                        class="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                    />
+                    @if ( settings.email().touched() && settings.email().value() === auth.currentUser()?.email) {
+                        <p class="mt-1 text-sm text-gray-500">
+                            Please enter a new Email adress
+                        </p>
+}
+                </div>
+
+
+                <!-- Password  -->
+                <div class="border-t border-gray-100 pt-6">
+
+                    <div class="mb-4">
+                        <h2 class="text-sm font-medium text-gray-900">
+                            Change password
+                        </h2>
+
+                        <p class="mt-1 text-sm text-gray-500">
+                            Leave these fields empty if you don't want to change your password.
+                        </p>
+                    </div>
+
+                    <div class="space-y-5">
+
+                        <div>
+                            <label
+                                for="password"
+                                class="mb-2 block text-sm font-medium text-gray-700"
+                            >
+                                New password
+                            </label>
+
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                placeholder="Enter a new password"
+                                class="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                            />
+                        </div>
+
+                        <div>
+                            <label
+                                for="confirm-password"
+                                class="mb-2 block text-sm font-medium text-gray-700"
+                            >
+                                Confirm new password
+                            </label>
+
+                            <input
+                                id="confirm-password"
+                                name="confirm-password"
+                                type="password"
+                                placeholder="Repeat your new password"
+                                class="w-full rounded-lg border border-gray-300 bg-white px-3.5 py-2.5 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
+                            />
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- Actions -->
+            <div class="mt-8 flex items-center justify-end gap-3 border-t border-gray-100 pt-6">
+
+                <button
+                    type="button"
+                    class="rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 transition hover:bg-gray-50"
+                    routerLink = "/profile" 
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="rounded-lg bg-gray-900 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-gray-800"
+                    (click) = "onSubmit()"
+                >
+                    Save changes
+                </button>
+
+            </div>
+
+    </div>
+
+</div>

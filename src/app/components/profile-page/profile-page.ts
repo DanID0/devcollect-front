@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../core/services/auth';
-import { HeaderBase } from '../../shared/header-base/header-base';
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-profile-page',
-  imports: [HeaderBase],
+  imports: [RouterLink],
   templateUrl: './profile-page.html',
   styleUrl: './profile-page.css',
 })

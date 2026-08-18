@@ -1,10 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../core/services/auth';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { DefaultAvatar } from '../default-avatar/default-avatar';
 @Component({
   selector: 'app-header-base',
-  imports: [RouterLink, DefaultAvatar],
+  imports: [RouterLink, DefaultAvatar, RouterOutlet],
   templateUrl: './header-base.html',
   styleUrl: './header-base.css',
 })

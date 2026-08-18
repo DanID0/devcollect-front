@@ -7,6 +7,9 @@ private http = inject(HttpClient);
 authUrl: string = "http://localhost:3000/auth"
     
 currentUser = signal<User | null>(null)
+setCurrentUser(user: User) {
+    this.currentUser.set(user);
+  }
 login(credentials: Login){
     return this.http.post<Login>(`${this.authUrl}/signin`,  credentials, { withCredentials: true })
 }

@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
-import { HeaderBase } from '../../shared/header-base/header-base';
 
 @Component({
   selector: 'app-guide-page',
-  imports: [HeaderBase],
+  imports: [],
   templateUrl: './guide-page.html',
   styleUrl: './guide-page.css',
 })
