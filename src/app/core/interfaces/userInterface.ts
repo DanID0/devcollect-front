@@ -5,6 +5,7 @@ export interface User {
   username: string;
   email: string;
   avatarUrl?: string;
+  profileDescription?: string;
   role: Role;
 }
 
@@ -15,11 +16,12 @@ export interface Registration {
 }
 
 export interface Login {
-    identifier: string,
-    password: string;
+  identifier: string;
+  password: string;
 }
 export interface ProfileUpdatePayload {
-   username: string; 
-   email: string; 
-   avatarUrl?: string | null;
-   }
+  username: string;
+  email: string;
+  avatarUrl?: string | null;
+  profileDescription: string;
+}
