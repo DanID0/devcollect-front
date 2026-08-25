@@ -9,32 +9,18 @@ import { DefaultAvatar } from '../default-avatar/default-avatar';
   styleUrl: './header-base.css',
 })
 export class HeaderBase {
-  auth = inject (AuthService);
+  auth = inject(AuthService);
   menuOpen = signal(false);
-ngOnInit(){
-  this.auth.getUser().subscribe({
-next: (user) => {
-this.auth.currentUser.set(user)
-},
-error: () => {
-this.auth.currentUser.set(null);
-}
-});
-  
-}
 
-error :boolean = false;
-logout() {
-
-  this.auth.logout().subscribe({
-    next: () => {
-    this.auth.currentUser.set(null);
-    },
-    error: (err) => {
-      console.error('LOGOUT ERROR', err);
-    }
-  });
+  error: boolean = false;
+  logout() {
+    this.auth.logout().subscribe({
+      next: () => {
+        this.auth.currentUser.set(null);
+      },
+      error: (err) => {
+        console.error('LOGOUT ERROR', err);
+      },
+    });
+  }
 }
-}
-
-

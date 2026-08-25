@@ -12,30 +12,26 @@ import { Router } from '@angular/router';
   styleUrl: './login-page.css',
 })
 export class LoginPage {
-auth = inject(AuthService);
-private router = inject(Router);
+  auth = inject(AuthService);
+  private router = inject(Router);
   userModel = signal<Login>({
-      identifier: '',
-      password: '',
-    });
+    identifier: '',
+    password: '',
+  });
   loginForm = form(this.userModel);
 
-    
-  
-onSubmit(){
-  const credentials = this.loginForm().value();
-  this.auth.login(credentials).subscribe({next: (response ) => {
-    this.router.navigate(['/guides'])
-
-  },
-  error: (err) => {
-    alert("Login error")
+  constructor() {
+    console.log('loginp age');
   }
-
-})
-
+  onSubmit() {
+    const credentials = this.loginForm().value();
+    this.auth.login(credentials).subscribe({
+      next: (response) => {
+        this.router.navigate(['/guides']);
+      },
+      error: (err) => {
+        alert('Login error');
+      },
+    });
+  }
 }
-
-  }
-
-

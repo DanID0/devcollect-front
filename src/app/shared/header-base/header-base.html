@@ -1,7 +1,6 @@
 <header class="bg-white">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="flex h-16 items-center justify-between">
-
       <div class="hidden md:block">
         <nav aria-label="Global">
           <ul class="flex items-center gap-6 text-sm">
@@ -15,84 +14,84 @@
       </div>
 
       @if (auth.currentUser() == null) {
-        <div class="flex items-center gap-4">
-          <div class="block md:hidden">
-            <button
-              type="button"
-              class="rounded-sm bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75"
+      <div class="flex items-center gap-4">
+        <div class="block md:hidden">
+          <button
+            type="button"
+            class="rounded-sm bg-gray-100 p-2 text-gray-600 transition hover:text-gray-600/75"
+          >
+            <span class="sr-only">Toggle menu</span>
+            <svg
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              class="size-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
             >
-              <span class="sr-only">Toggle menu</span>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+        <a
+          class="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow-sm"
+          routerLink="/login"
+        >
+          Login
+        </a>
+      </div>
+      } @else {
+      <div class="relative hidden md:block">
+        <button
+          type="button"
+          (click)="menuOpen.set(!menuOpen())"
+          class="overflow-hidden rounded-full border border-gray-300 shadow-inner dark:border-gray-600"
+        >
+          <span class="sr-only">Toggle dashboard menu</span>
+          <app-default-avatar></app-default-avatar>
+        </button>
+
+        @if (menuOpen()) {
+        <div
+          class="absolute end-0 z-10 mt-0.5 w-56 rounded-md border border-gray-100 bg-white shadow-lg dark:border-gray-800 dark:bg-gray-900"
+          role="menu"
+        >
+          <div class="p-2">
+            <a
+              routerLink="/profile"
+              class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+              role="menuitem"
+            >
+              My profile
+            </a>
+
+            <button
+              (click)="logout()"
+              class="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-300"
+              role="menuitem"
+            >
               <svg
                 aria-hidden="true"
                 xmlns="http://www.w3.org/2000/svg"
-                class="size-5"
                 fill="none"
                 viewBox="0 0 24 24"
+                stroke-width="1.5"
                 stroke="currentColor"
-                stroke-width="2"
+                class="size-4"
               >
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3"
+                />
               </svg>
+              Logout
             </button>
           </div>
-          <a
-          class="rounded-md bg-teal-600 px-5 py-2.5 text-sm font-medium text-white shadow-sm"
-          routerLink = "/login"
-        >
-            Login
-          </a>
         </div>
-      }
-
-      @else {
-        <div class="relative hidden md:block">
-          <button
-            type="button"
-            (click)="menuOpen.set(!menuOpen())"
-            class="overflow-hidden rounded-full border border-gray-300 shadow-inner dark:border-gray-600"
-          >
-            <span class="sr-only">Toggle dashboard menu</span>
-            <app-default-avatar></app-default-avatar>
-              
-
-          </button>
-
-          @if (menuOpen()) {
-            <div
-              class="absolute end-0 z-10 mt-0.5 w-56 rounded-md border border-gray-100 bg-white shadow-lg dark:border-gray-800 dark:bg-gray-900"
-              role="menu"
-            >
-              <div class="p-2">
-                <a
-                routerLink = "/profile"
-                class="block rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-300"
-                role="menuitem"
-              >
-                My profile
-              </a>
-
-                <button
-                  (click)="logout()"
-                  class="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-gray-500 hover:bg-gray-50 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-300"
-                  role="menuitem"
-                >
-                  <svg
-                    aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke-width="1.5"
-                    stroke="currentColor"
-                    class="size-4"
-                  >
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M9 15 3 9m0 0 6-6M3 9h12a6 6 0 0 1 0 12h-3" />
-                  </svg>
-                  Logout
-                </button>
-              </div>
-            </div>
-          }
-        </div>
+        }
+      </div>
       }
     </div>
   </div>

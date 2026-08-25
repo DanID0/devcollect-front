@@ -1,25 +1,38 @@
 import { inject, Service, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { User,Login } from '../interfaces/userInterface';
+import { User, Login } from '../interfaces/userInterface';
+import { tap } from 'rxjs';
 @Service()
 export class AuthService {
-private http = inject(HttpClient);
-authUrl: string = "http://localhost:3000/auth"
-    
-currentUser = signal<User | null>(null)
-setCurrentUser(user: User) {
+  private http = inject(HttpClient);
+  authUrl: string = 'http://localhost:3000/auth';
+
+  currentUser = signal<User | null>(null);
+  authChecked = signal(false);
+
+  setCurrentUser(user: User | null) {
     this.currentUser.set(user);
   }
-login(credentials: Login){
-    return this.http.post<Login>(`${this.authUrl}/signin`,  credentials, { withCredentials: true })
-}
-getUser() {
-   return this.http.get<User>(`${this.authUrl}/protected`, { withCredentials: true })
+
+  checkAuth() {
+    return this.getUser().pipe(
+      tap({
+        next: (user) => this.currentUser.set(user),
+        error: () => this.currentUser.set(null),
+        finalize: () => this.authChecked.set(true),
+      }),
+    );
   }
-  
-logout(){
-    return this.http.post(`${this.authUrl}/logout`, {}, { withCredentials: true })
-}
+  getUser() {
+    return this.http.get<User>(`${this.authUrl}/protected`, { withCredentials: true });
+  }
+  login(credentials: Login) {
+    return this.http.post<Login>(`${this.authUrl}/signin`, credentials, { withCredentials: true });
+  }
+
+  logout() {
+    return this.http.post(`${this.authUrl}/logout`, {}, { withCredentials: true });
+  }
 }
 // .subscribe({
 //   next: (user) => {
@@ -28,4 +41,4 @@ logout(){
 //   error: () => {
 //     this.currentUser.set(null);
 //   }
-// });
+// })
