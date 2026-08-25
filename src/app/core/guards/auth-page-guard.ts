@@ -7,7 +7,6 @@ export const authPageGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
 ) => {
-  console.log('auth page guard started');
   const router = inject(Router);
   const auth = inject(AuthService);
 

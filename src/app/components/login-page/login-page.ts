@@ -20,9 +20,6 @@ export class LoginPage {
   });
   loginForm = form(this.userModel);
 
-  constructor() {
-    console.log('loginp age');
-  }
   onSubmit() {
     const credentials = this.loginForm().value();
     this.auth.login(credentials).subscribe({

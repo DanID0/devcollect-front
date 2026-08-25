@@ -7,7 +7,6 @@ export const authGuard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot,
 ) => {
-  console.log('auth guard started');
   const router = inject(Router);
   const auth = inject(AuthService);
   const loginPath = router.parseUrl('/login');
