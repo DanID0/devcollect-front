@@ -7,7 +7,7 @@ export class AuthService {
   private http = inject(HttpClient);
   authUrl: string = 'http://localhost:3000/auth';
 
-  currentUser = signal<User | null>(null);
+  currentUser = signal<User | null | undefined>(undefined);
   authChecked = signal(false);
 
   setCurrentUser(user: User | null) {

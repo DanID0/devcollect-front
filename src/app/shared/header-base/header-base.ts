@@ -11,7 +11,6 @@ import { DefaultAvatar } from '../default-avatar/default-avatar';
 export class HeaderBase {
   auth = inject(AuthService);
   menuOpen = signal(false);
-
   error: boolean = false;
   logout() {
     this.auth.logout().subscribe({
