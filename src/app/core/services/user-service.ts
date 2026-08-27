@@ -12,11 +12,16 @@ export class UserService {
   signup(userRegistration: Registration) {
     return this.http.post<Registration>(this.userUrl, userRegistration);
   }
-  patchUser(id: User['id'], settings: Partial<ProfileUpdatePayload>) {
-    const url = `${this.userUrl}/${id}`;
+  patchUser(settings: Partial<ProfileUpdatePayload>) {
+    const url = this.userUrl;
     return this.http.patch<User>(url, settings, { withCredentials: true });
   }
   uploadAvatar(formData: FormData) {
     return this.http.post<User>(`${this.userUrl}/avatar`, formData, { withCredentials: true });
+  }
+  changePassword(password: Partial<ProfileUpdatePayload>) {
+    return this.http.patch<{ message: string }>(`${this.userUrl}/password`, password, {
+      withCredentials: true,
+    });
   }
 }

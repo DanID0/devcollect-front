@@ -22,6 +22,8 @@ export interface Login {
 export interface ProfileUpdatePayload {
   username: string;
   email: string;
+  currentPassword: string;
+  newPassword: string;
   avatarUrl?: string | null;
   profileDescription: string;
 }

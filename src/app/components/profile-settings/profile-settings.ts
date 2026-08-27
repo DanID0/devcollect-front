@@ -13,11 +13,25 @@ import { UserService } from '../../core/services/user-service';
 })
 export class ProfileSettings {
   private router = inject(Router);
+  passwordError = signal<string | null>(null);
+  passwordModalOpen = signal(false);
   auth = inject(AuthService);
   user = inject(UserService);
+
+  openPasswordModal() {
+    this.passwordError.set(null);
+    this.passwordModalOpen.set(true);
+  }
+
+  closePasswordModal() {
+    this.passwordError.set(null);
+    this.passwordModalOpen.set(false);
+  }
   userModel = signal<ProfileUpdatePayload>({
     username: '',
     email: '',
+    newPassword: '',
+    currentPassword: '',
     profileDescription: this.auth.currentUser()?.profileDescription ?? '',
   });
   settings = form(this.userModel);
@@ -35,7 +49,7 @@ export class ProfileSettings {
       ...(values.email ? { email: values.email } : {}),
       ...(values.profileDescription ? { profileDescription: values.profileDescription } : {}),
     };
-    this.user.patchUser(currentUser.id, creds).subscribe({
+    this.user.patchUser(creds).subscribe({
       next: (updatedUser) => {
         this.auth.setCurrentUser(updatedUser);
         if (
@@ -53,14 +67,37 @@ export class ProfileSettings {
       },
     });
   }
+  onPasswordChange() {
+    const values = this.settings().value();
+    const passwords: Partial<ProfileUpdatePayload> = {
+      ...(values.currentPassword ? { currentPassword: values.currentPassword } : {}),
+      ...(values.newPassword ? { newPassword: values.newPassword } : {}),
+    };
+    if (!!values.currentPassword && !!values.newPassword) {
+      this.user.changePassword(passwords).subscribe({
+        next: (result) => {
+          this.router.navigateByUrl('/profile');
+          console.log(result.message);
+          this.passwordError.set(null);
+        },
+        error: (err) => {
+          this.passwordError.set(err.error.message ?? 'Something went wrong');
+        },
+      });
+    }
+  }
   uploadFile(event: any) {
     const formData = new FormData();
 
     formData.append('image', event.target.files[0]);
 
     this.user.uploadAvatar(formData).subscribe({
-      next: (result: any) => {},
-      error: (error: any) => {},
+      next: (result) => {
+        this.auth.setCurrentUser(result);
+      },
+      error: (error) => {
+        console.error('UPDATE ERROR:', error);
+      },
     });
   }
 }
